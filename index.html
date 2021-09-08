@@ -142,25 +142,28 @@
           var incorrectAnswers = 0;
           var correctAnswers = 0;
           var questionCount = 0;
+          var nums = 4;
 
           for(var i = 0; i < 20; i++) {
               var ran1 = Math.floor((Math.random() * 10) + 1);
               var ran2 = Math.floor((Math.random() * 10) + 1);
               var ran3 = Math.floor((Math.random() * 10) + 1);
-              var sum = ran1 + ran2 + ran3;
+              var ran4 = Math.floor((Math.random() * 10) + 1);
+              var sum = ran1 + ran2 + ran3 + ran4;
               var options = [];
 
               options.push({ value: sum, isCorrect: true });
               options.push({ value: sum + 1, isCorrect: false });
               options.push({ value: sum - 1, isCorrect: false });
+              options.push({ value: sum + 2, isCorrect: false });
 
               var ranValues = [];
-              var ranValue = Math.floor((Math.random() * 3));
-              while(ranValues.length < 3) {
+              var ranValue = Math.floor((Math.random() * nums));
+              while(ranValues.length < nums) {
                   if (ranValues.indexOf(ranValue) < 0) {
                     ranValues.push(ranValue);
                   }
-                  ranValue = Math.floor((Math.random() * 3));
+                  ranValue = Math.floor((Math.random() * nums));
               }
 
               data.push({ 
@@ -168,15 +171,16 @@
                   num1: ran1, 
                   num2: ran2,
                   num3: ran3, 
+                  num4: ran4, 
                   sum: sum, 
                   options: ranValues.map((r) => options[r]) });
           }
 
           $(data).each(function(index, el) {
             $(".main-content").append(
-                '<div class="math-option"><span class="operation">' + el.num1 + ' + ' + el.num2 + ' + ' + el.num3 + ' = </span>&nbsp;&nbsp;' + 
+                '<div class="math-option"><span class="operation">' + el.num1 + ' + ' + el.num2 + ' + ' + el.num3 + ' + ' + el.num4 + ' = </span>&nbsp;&nbsp;' + 
                 '<span>' + runOptions(el.options, index) + '</span><span class="ind-result result-' + index + '"><span class="material-icons"></span>&nbsp;<span class="gif-img"></span></span><br/>' + 
-                getBalls(el.num1) + '<br/>' + getBalls(el.num2) + '<br/>' + getBalls(el.num3) + '<br/>' +
+                getBalls(el.num1) + '<br/>' + getBalls(el.num2) + '<br/>' + getBalls(el.num3) + '<br/>' + getBalls(el.num4) + '<br/>' +
                 '</div><br/><br/><br/><br/>'
             );
           });
